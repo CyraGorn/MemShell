@@ -1,0 +1,10 @@
+Shell thông qua filter (filter dùng để thực hiện code, action trước hoặc sau request, được ưu tiên trước route)
+4 loại filter: Authorization, Action, Result, Exception
+Chọn loại có ưu tiên cao nhất => Authorization
+Trong System.Web.Mvc.GlobalFilterCollection, method Add được overload, 1 method có param order, 1 method không có
+default order = -1 => để ưu tiên hơn cần set order < -1 (order càng bé thì càng đc ưu tiên)
+Thứ tự ưu tiên được xét qua order và scope, trong đó order được ưu tiên trước scope
+
+=> Để tạo shell thì cần tạo 1 object GlobalFilterCollection, sau đó gọi method Add để set ưu tiên và tạo filter mới chứa payload (filter mới này kế thừa AuthorizationFilter)
+
+Hạn chế: chỉ dùng được với asp.net mvc, web phải cài đặt System.web.mvc.dll

@@ -1,0 +1,16 @@
+﻿System.Web.Routing được dùng để routing trong asp.
+Path có dạng:  /{controller}/{action}/{id}
+Có thể cài memshell nếu map được path vào 1 class của ta.
+
+Trong source code của function MapRoute ta có gọi method routes.Add(name, route).
+Param 1 để gọi tên route, param 2 là 1 route được implement abstract class RouteBase
+RouteBase có 2 abstract method: GetRouteData(HttpContextBase) và GetVirtualPath(RequestContext, RouteValueDictionary)
+GetRouteData: trả về thông tin định tuyến của request
+GetVirtualPath: check route có ứng với các value được định sẵn không, nếu có thì generate URL và lấy thông tin của route đó.
+
+=> Có thể implement = 2 cách, mỗi cách sẽ override 1 method.
+
+Thứ tự đi request: GetRouteData -> Controller -> GetVirtualPath
+=> Ưu tiên dùng GetRouteData
+
+Vì RouteCollection là type Collection, gọi routes.Insert vào index 0 với route shell của ta để được thực thi 
