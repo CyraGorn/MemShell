@@ -1,16 +1,22 @@
 ﻿System.Web.Routing được dùng để routing trong asp.
+RouteTable.Routes chứa tất cả các global route (tương tự GlobalFilters.Filters chứa filter)
 Path có dạng:  /{controller}/{action}/{id}
 Có thể cài memshell nếu map được path vào 1 class của ta.
 
-Trong source code của function MapRoute ta có gọi method routes.Add(name, route).
+Trong source code của function MapRoute ta có gọi routes.Add(name, route).
 Param 1 để gọi tên route, param 2 là 1 route được implement abstract class RouteBase
-RouteBase có 2 abstract method: GetRouteData(HttpContextBase) và GetVirtualPath(RequestContext, RouteValueDictionary)
-GetRouteData: trả về thông tin định tuyến của request
-GetVirtualPath: check route có ứng với các value được định sẵn không, nếu có thì generate URL và lấy thông tin của route đó.
 
-=> Có thể implement = 2 cách, mỗi cách sẽ override 1 method.
+Có 2 hướng tạo shell:
+	C1: Tự tạo 1 class RouteBase
+		RouteBase có 2 abstract method: GetRouteData(HttpContextBase) và GetVirtualPath(RequestContext, RouteValueDictionary)
+		GetRouteData: trả về thông tin định tuyến của request
+		GetVirtualPath: check route có ứng với các value được định sẵn không, nếu có thì generate URL và lấy thông tin của route đó.
 
-Thứ tự đi request: GetRouteData -> Controller -> GetVirtualPath
-=> Ưu tiên dùng GetRouteData
+		=> Có thể implement = 2 cách, mỗi cách sẽ override 1 trong 2 method trên, mỗi method được override đó sẽ đặt payload vào rồi return null.
 
-Vì RouteCollection là type Collection, gọi routes.Insert vào index 0 với route shell của ta để được thực thi 
+		Thứ tự đi request: GetRouteData -> Controller -> GetVirtualPath
+		=> Ưu tiên dùng GetRouteData
+
+		Vì RouteTable.Routes là type Collection, ta gọi Insert vào index 0 với route shell của ta để set ưu tiên.
+	C2: Tạo object System.Web.Routing.Route mới
+		Insert vào index 0 vào RouteTable.Routes để register 1 route mới (ví dụ /abc) bằng 1 class đã đặt payload của ta.

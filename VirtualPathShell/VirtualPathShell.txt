@@ -1,0 +1,18 @@
+﻿Virtual path: map các url hoặc file path giả đến đường dẫn thật trên máy chủ.
+
+Để tạo Virtual Path memshell thì cần tạo object VirtualPathProvider, trong đó phải cài 2 abstract method FileExist và GetFile
+Cách 1:
+	Method GetFile sẽ trả về 1 object System.Web.Hosting.VirtualFile, ta cũng sẽ cần cài đặt tiếp object VirtualFile này.
+	Trong VirtualFile đó, cần override method Open(), method này return 1 stream object (ta sẽ return 1 StreamMemory object để cài payload vào memory)
+
+	Để inject được shell, ta tạo path mới, gọi HostingEnvironment.RegisterVirtualPathProvider(VirtualPathProvider virtualPathProvider) 
+	Do VirtualPathProvider inherit MarshalByRefObject, trong đó sẽ inherit method InitializeLifetimeService dùng để limit thời gian tồn tại
+	Để shell tồn tại cần gọi InitializeLifetimeService()
+
+Cách 2:
+	Ta không cần tạo 1 VirtualFile, việc tạo 1 path mới là không cần thiết.
+	Do mỗi request đến virtual path cần xác định file vật lý có tồn tại hay không nên ta có thể inject shell vào method FileExist
+	Để có ưu tiên cao nhất, ta override GetCacheKey
+	Vì Website hiện tại thường được precompiled (compile sẵn ra các file dll trước khi run) nên khi gọi RegisterVirtualPathProvider sẽ không trả về kết quả gì.
+	Để bypass được điều này ta dùng reflection để set preCompiled thành false
+	Asp.net còn có 1 function khác là FriendlyUrls (làm đẹp url, bỏ đi các đuôi .aspx thì không thể kích hoạt shell) nên cần bypass. 

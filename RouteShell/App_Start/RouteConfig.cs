@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using static RouteShell.MvcApplication;
-using RouteShell.Handler;
 
 namespace RouteShell
 {

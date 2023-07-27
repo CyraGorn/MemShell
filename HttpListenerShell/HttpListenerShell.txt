@@ -1,0 +1,6 @@
+﻿Http Listener: khởi tạo 1 web server đơn giản (giống với python -m http.server)
+Thuận lợi: không để lại log khi bị tấn công
+
+Cách thức: 
+Tạo 1 thread để listen trên 1 path nào đó (do ta sẽ trigger deserialize nhiều lần, và cần tránh các ngoại lệ)
+Trên thread đó tạo 1 http listener để bind command

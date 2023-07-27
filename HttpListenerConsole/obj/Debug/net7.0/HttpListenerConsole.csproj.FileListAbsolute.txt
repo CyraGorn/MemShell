@@ -1,0 +1,15 @@
+G:\CODE\C#\HttpListenerConsole\bin\Debug\net7.0\HttpListenerConsole.exe
+G:\CODE\C#\HttpListenerConsole\bin\Debug\net7.0\HttpListenerConsole.deps.json
+G:\CODE\C#\HttpListenerConsole\bin\Debug\net7.0\HttpListenerConsole.runtimeconfig.json
+G:\CODE\C#\HttpListenerConsole\bin\Debug\net7.0\HttpListenerConsole.dll
+G:\CODE\C#\HttpListenerConsole\bin\Debug\net7.0\HttpListenerConsole.pdb
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.csproj.AssemblyReference.cache
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.GeneratedMSBuildEditorConfig.editorconfig
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.AssemblyInfoInputs.cache
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.AssemblyInfo.cs
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.csproj.CoreCompileInputs.cache
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.dll
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\refint\HttpListenerConsole.dll
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.pdb
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\HttpListenerConsole.genruntimeconfig.cache
+G:\CODE\C#\HttpListenerConsole\obj\Debug\net7.0\ref\HttpListenerConsole.dll
